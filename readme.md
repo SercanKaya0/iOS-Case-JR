@@ -1,5 +1,9 @@
 # HR App
 
+Bu doküman, Jr seviyede iOS geliştirici pozisyonu için hazırlanmış olup, projenin genel yapısını, teknik gereksinimlerini ve geliştirilmesi gereken özellikleri detaylı şekilde açıklamaktadır. Adayın proje kapsamını ve beklentileri net olarak anlaması amaçlanmıştır.
+
+---
+
 Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım süreçlerini kolaylaştırmayı amaçlayan bir mobil uygulama.
 
 ## 👨‍💻 Geliştirici
@@ -11,7 +15,8 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
 
 - [📖 Giriş](#giriş)
 - [⚙️ Gereksinimler](#gereksinimler)
-- [✨ Nice to Have Özellikler](#nice-to-have-ozellikler)
+- [✨ Nice to Have Özellikler](#nice-to-have-özellikler)
+- [📂 API Örnekleri](#api-örnekleri)
 - [🚀 Özellikler](#özellikler)
   - [🎬 Launch Screen](#launch-screen)
   - [💧 Splash Screen](#splash-screen)
@@ -25,25 +30,25 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
 
 ## 📖 Giriş
 
-**HR App**, birden fazla markaya kolayca uyarlanabilecek esnek bir yapıda tasarlanmıştır. Amaç; yalnızca marka kimliğine uygun tasarımlar giydirilerek, minimum geliştirme ile farklı pazarlarda kullanılabilecek bir İnsan Kaynakları uygulaması sunmaktır.
+**HR App**, birden fazla markaya kolayca uyarlanabilecek esnek bir yapıda tasarlanmıştır. Amaç, yalnızca marka kimliğine uygun tasarımlar giydirilerek, minimum geliştirme ile farklı pazarlarda kullanılabilecek bir İnsan Kaynakları uygulaması sunmaktır.
 
 ---
 
 ## ⚙️ Gereksinimler
 
-- **Mimari:** MVVM-R
+- **Mimari:** MVVM-R (Model-View-ViewModel - Router)
 - **Branch Yapısı:**
   - `feature/hrapp-000-feature-name`
   - `bug/hrapp-000-fix-description`
   - **Commit Örneği:** `HRAPP-101 Login ekranı tasarlandı.`
 - **Geliştirme:** Mevcut proje üzerinden devam edilecektir.
-- **Swift Package Manager (SPM)**
+- **Swift Package Manager (SPM)** (Swift'in paket yönetim aracı)
 - **Minimum iOS Sürümü:** iOS 15+
 - **Dil Desteği:** Türkçe & İngilizce (JSON tabanlı lokalizasyon)
 - **Karanlık Mod (Dark Mode)** desteği
 - **Layout:** Auto Layout ile responsive tasarım
 - **Geliştirme Yöntemi:** Programmatic veya XIB
-- **Servis Katmanı:** DataProvider isim bir spm package içeriside bulunmalıdır.
+- **Servis Katmanı:** DataProvider isim bir spm package içerisinde bulunmalıdır.
 
 ---
 
@@ -58,6 +63,23 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
 - SwiftLint Kurulumu
 - Deeplink Entegrasyonu - (Scheme: loodosCase)
 
+Not: Bu özellikler zorunlu olmamakla birlikte, projeye değer katacaktır.
+
+---
+
+## 📂 API Örnekleri
+
+Aşağıda verilen CURL örnekleri, proje içerisinde farklı özelliklerde referans olarak kullanılabilir.
+
+```bash
+curl -X POST https://api.dev.hrapp.com/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "test.case",
+    "password": "123123"
+  }'
+```
+
 ---
 
 ## 🚀 Özellikler
@@ -68,58 +90,41 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
 - Auto Layout uyumlu
 - Dark Mode desteği
 - Uygulama bu ekranla başlamalı
+
 ---
 
 ### 💧 Splash Screen
 - [Figma Linki](https://www.figma.com/design/MbORukxK22gzWuvYmP41Vv/Supa-Resume---Light---Dark--FREE-Resume-Cover-Letter---Community-?node-id=33-5366)
-- **CURL Örneği:**
-  ```bash
-  curl -X POST https://api.dev.hrapp.com/login \
-    -H "Content-Type: application/json" \
-    -d '{
-      "username": "test.case",
-      "password": "123123"
-    }'
-  ```
 - **Task Kodu:** `HRAPP-001`
 - Auto Layout ile tüm cihaz boyutlarına uyumlu tasarım
 - Dark Mode desteği
 - Launch sonrası gösterilir
-- Genel Akış;
+- Genel Akış:
     - Uygulama Launch Screen sonrasında SplashViewController üzerinden başlar.
-    - Yukarıdaki CURL örneği ile belirtilen API'ye istek göndererek ilgili JSON verisini alabilirsiniz.
+    - API örnekleri için bkz. 'API Örnekleri' bölümü.
     - Bu JSON dosyasındaki key–value verileri, lokalizasyon amaçlı kullanılacaktır.
     - Çekilen JSON dosyası cihazın yerel deposunda (örneğin UserDefaults veya dosya sistemi) saklanmalıdır.
     - Yönlendirme Kuralları:
         - Eğer kullanıcı onboard ekranlarını daha önce görmemişse, uygulama Onboard ekranına yönlendirilmelidir.
         - Kullanıcı giriş yaptıysa, doğrudan Anasayfa (Home) ekranına yönlendirilmelidir.
         - Kullanıcı giriş yapmadıysa, Login ekranına yönlendirilmelidir.
-        - Başlangıç Noktası:
-        - Geliştirmeye SplashViewController dosyasından başlanmalıdır.
-        - Uygulama açıldığında kullanıcının dil dosyasını çekebilmesi için dikkat edilmesi gerekenler;
-            - Uygulama yüklendiğinde eğer cihaz dili türkçe değilse en-US, eğer türkçe ise tr-TR olarak localizable dosyası çekilmelidir.
+    - Uygulama açıldığında kullanıcının dil dosyasını çekebilmesi için dikkat edilmesi gerekenler:
+        - Uygulama yüklendiğinde eğer cihaz dili Türkçe değilse en-US, eğer Türkçe ise tr-TR olarak localizable dosyası çekilmelidir.
+
 ---
 
 ### 🛳️ Onboard
 - [Figma Linki](https://www.figma.com/design/MbORukxK22gzWuvYmP41Vv/Supa-Resume---Light---Dark--FREE-Resume-Cover-Letter---Community-?node-id=33-5366)
-- **CURL Örneği:**
-  ```bash
-  curl -X POST https://api.dev.hrapp.com/login \
-    -H "Content-Type: application/json" \
-    -d '{
-      "username": "test.case",
-      "password": "123123"
-    }'
-  ```
 - **Task Kodu:** `HRAPP-002`
 - Auto Layout ile tüm cihaz boyutlarına uyumlu tasarım
 - Dark Mode desteği
-- Genel Akış;
-    - Yukarıdaki CURL örneği ile belirtilen API'den alınan JSON verisi Splash ekranında çekilip Onboard ekranına aktarılmalıdır.
+- Genel Akış:
+    - API örnekleri için bkz. 'API Örnekleri' bölümü.
+    - Yukarıdaki API'den alınan JSON verisi Splash ekranında çekilip Onboard ekranına aktarılmalıdır.
     - Resimler yüklenirken iOS native loading mekanizması kullanılmalıdır.
     - Görseller yüklenirken hata alınırsa, tasarımdaki placeholder görsel gösterilmelidir.
     - Resimler cache'lenmelidir; böylece kullanıcı Onboard ekranını tekrar gördüğünde yeniden indirilmelerine gerek kalmaz.
-    - Kullanıcı Onboard ekranında geri butonunu kullanarak çıkış yapamamalıdır.
+    - Kullanıcı Onboard ekranında geri butonunu kullanarak çıkış yapmamalıdır.
     - Kullanıcı "Devam Et" butonuna bastığında, bir sonraki Onboard sayfası gösterilmelidir.
     - Kullanıcı "Atla" (Skip) butonuna basarsa, doğrudan Login ekranına yönlendirilmelidir.
     - Kullanıcı son Onboard ekranındaysa ve "Devam Et" butonuna basarsa, Login ekranına yönlendirme yapılmalıdır.
@@ -133,19 +138,10 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
 - **Task Kodu:** `HRAPP-003`
 - **Test Kullanıcı Bilgileri:**  
   `username: test.case`, `password: 123123`
-- **CURL Örneği:**
-  ```bash
-  curl -X POST https://api.dev.hrapp.com/login \
-    -H "Content-Type: application/json" \
-    -d '{
-      "username": "test.case",
-      "password": "123123"
-    }'
-  ```
-- Tüm cihaz boyutlarına uyumlu Auto Layout tasarımı
-- Dark Mode desteği
-
 - **Genel Akış:**
+  - API örnekleri için bkz. 'API Örnekleri' bölümü.
+  - Tüm cihaz boyutlarına uyumlu Auto Layout tasarımı
+  - Dark Mode desteği
   - Kullanıcı adı alanı minimum 3, maksimum 50 karakter olmalıdır.
   - Şifre alanı minimum 6, maksimum 20 karakter olmalıdır.
   - Tüm giriş alanlarında emoji kullanımı engellenmelidir.
@@ -188,24 +184,6 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
 ### 🏠 Home
 - [Figma Linki](https://www.figma.com/design/MbORukxK22gzWuvYmP41Vv/Supa-Resume---Light---Dark--FREE-Resume-Cover-Letter---Community-?node-id=33-5366)
 - **Task Kodu:** `HRAPP-005`
-- **Banner CURL Örneği:**
-  ```bash
-  curl -X POST https://api.dev.hrapp.com/login \
-    -H "Content-Type: application/json" \
-    -d '{
-      "username": "test.case",
-      "password": "123123"
-    }'
-  ```
-  - **Otopark CURL Örneği:**
-  ```bash
-  curl -X POST https://api.dev.hrapp.com/login \
-    -H "Content-Type: application/json" \
-    -d '{
-      "username": "test.case",
-      "password": "123123"
-    }'
-  ```
 - Tüm cihaz boyutlarına uyumlu Auto Layout tasarımı
 - Dark Mode desteği
 - CollectionView ile geliştirme yapılacaktır.
@@ -222,16 +200,15 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
   return cell
   ```
  - Kullanıcı Banner’a tıkladığında detay sayfasına yönlendirilmelidir.
- - Detay sayfasında kullanıcnın tıkladığı resmi göstermek yeterli olcaktır.
+ - Detay sayfasında kullanıcının tıkladığı resmi göstermek yeterli olacaktır.
  - Maslak Otopark bileşeni bir servis isteğiyle durumunu göstermelidir ("BOŞ" veya "DOLU").
    - Servis yanıtında dönen süre (örneğin 60 saniye) kadar bekleyip yeniden istek atılmalıdır.
    - Eğer servisten gelen süre “0” ise, tekrar istek atılmamalıdır (timer durdurulmalıdır).
- - Kullanıcı bu ekrandan geri dönüş yapamamalıdır.
+ - Kullanıcı bu ekrandan geri dönüş yapmamalıdır.
  - Ekran, TabBar’da yer almalıdır. (MainTabBarViewController)
 
 - **Nice to Have:**
   - Firebase click_banner, refresh_carpark, stop_timer, click_home_tab eventleri.
-
 
 ---
 
@@ -252,8 +229,9 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
 
 ## 📎 Ek Bilgi
 
-- Localizasyon yaparken servisten gelen keylere gösterim yapacağız. Json dosyasında tüm textler hazır olacaktır uygun keyi kullanmanız yeterli olcaktır. ("login_title" : "Hoşgeldiniz")
-- Servislerden eğer 401 gelirse uygulama Logine yönlenmelidir ve kullanıcı bilgileri silinmelidir..
+- Localizasyon yaparken servisten gelen keylere gösterim yapacağız. Json dosyasında tüm textler hazır olacaktır; uygun keyi kullanmanız yeterli olacaktır. ("login_title" : "Hoşgeldiniz")
+- Servislerden eğer 401 gelirse uygulama Logine yönlenmelidir ve kullanıcı bilgileri silinmelidir.
+
 ---
 
 > Bu proje, minimum geliştirme ile farklı marka ihtiyaçlarına uyum sağlamayı hedefleyen, ölçeklenebilir ve modüler bir yapı üzerine kurulmuştur.
