@@ -222,6 +222,7 @@ Modern İK ekipleri için geliştirilmiş, aday değerlendirme ve işe alım sü
   return cell
   ```
  - Kullanıcı Banner’a tıkladığında detay sayfasına yönlendirilmelidir.
+ - Detay sayfasında kullanıcnın tıkladığı resmi göstermek yeterli olcaktır.
  - Maslak Otopark bileşeni bir servis isteğiyle durumunu göstermelidir ("BOŞ" veya "DOLU").
    - Servis yanıtında dönen süre (örneğin 60 saniye) kadar bekleyip yeniden istek atılmalıdır.
    - Eğer servisten gelen süre “0” ise, tekrar istek atılmamalıdır (timer durdurulmalıdır).
