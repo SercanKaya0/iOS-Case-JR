@@ -172,12 +172,11 @@ curl -X POST https://api.dev.hrapp.com/login \
   - OTP alanına `"12345"` yazılıp "Giriş Yap" butonuna basıldığında işlem başarılı kabul edilir.
   - "Giriş Yap" butonu yalnızca tüm OTP input alanları doluysa aktif hale gelmelidir.
   - Kullanıcı, geri butonuyla Login ekranına dönebilmelidir.
-  - Uygulama arka plana alındığında geri sayım durmamalı; örneğin, 30. saniyede arka plana alınıp 20 saniye sonra geri dönüldüğünde, sayaç 10. saniyeden devam etmelidir.
   - Giriş işlemi başarılı olduğunda kullanıcı Home ekranına yönlendirilmelidir.
 
  - **Nice to Have:**
   - Firebase üzerinden otp_success ve otp_error event’lerinin gönderilmesi
-  - OTP input alanlarının yeniden kullanılabilir (reusable) bir component olarak tasarlanması
+  - OTP input alanlarının yeniden kullanılabilir (reusable) bir component olarak tasarlanmasıü  - Uygulama arka plana alındığında geri sayım durmamalı; örneğin, 30. saniyede arka plana alınıp 20 saniye sonra geri dönüldüğünde, sayaç 10. saniyeden devam etmelidir.
 
 ---
 
@@ -235,3 +234,11 @@ curl -X POST https://api.dev.hrapp.com/login \
 ---
 
 > Bu proje, minimum geliştirme ile farklı marka ihtiyaçlarına uyum sağlamayı hedefleyen, ölçeklenebilir ve modüler bir yapı üzerine kurulmuştur.
+
+## 🛠 Yapılan İyileştirme ve Düzeltilen Buglar
+
+Bu bölümde proje kapsamında geliştirilen iyileştirmeler ve tespit edilen/çözülen buglar listelenecektir. Eğer projede geliştirme sırasında fark ettiğiniz bug, performans sorunu veya başka bir problem varsa, lütfen buraya ekleyin.
+
+- [ ] Örnek: Splash ekranında gereksiz API çağrısı kaldırıldı.
+- [ ] Örnek: Onboard ekranında görsel cache mekanizması iyileştirildi.
+- [ ] [Eklemek için buraya not alın...]
